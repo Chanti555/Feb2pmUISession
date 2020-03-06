@@ -1,0 +1,118 @@
+1.Creating Database
+2.Using Database
+3.mysql datatypes
+4.mysql constraints
+5.Creating Table
+6.Inserting records
+7.Reading/Selecting Records
+____________________________________________________________
+1.Creating Database:
+----------------------------
+syntax:
+	create	database		<databasename>;
+ex:
+	create	database		chantidb1;
+
+2.Using Database:
+-------------------------
+syntax:
+	use	<databasename>;
+ex:
+	use	chantidb1;
+
+Note:
+====
+Displaying no of databases	:	show databases;
+Displaying no of tables	:	show tables;
+
+3.mysql datatypes:
+---------------------------
+		Java Datatypes		MySQL datatypes
+		____________		_______________
+		int			int
+		float			float
+		char			char
+		String			varchar
+		Date			date
+		byte			blob
+
+4.mysql 6 constraints:
+----------------------------
+Constraints are conditions to store restricted values in tables.
+
+1.not null: 
+	It cannot allow null values & allows dublicates
+	Ex: fullname,age,..
+2.unique:
+	It cannot allow  dublicates values & allows null values
+	Ex:passport,pan,account,driving,..
+3.primary key:
+	It cannot allow  dublicates & null values
+	Ex:mailid,userid,aadhar,phone,..
+4.check:
+	Used to checking a condition for value
+	Ex:per,age,height,
+5.default:
+	Used to common values for all columns
+	Ex:Nationality,country code,...
+6.Foreign Key:
+	One table primary key is act as another table primary key.
+	It is implemented by "references" keyword
+	
+5.Creating Table:
+------------------------
+	We use "create" ddl command to prepare a table
+syntax:
+	create	table	<tablename>
+	(
+		column1name	datatype(size)	constraint,
+		column2name	datatype(size)	constraint,
+		...
+	);
+PS1:Create a student table with fullname,rollno,passport,per,branch,dob columns
+Query:
+	create	table	student
+	(
+		fullname		varchar(15)	not null,
+		rollno		int		primary key,
+		passport		varchar(10)	unique,
+		per		float		check(per>70),
+		branch		varchar(5)	default  'CSE',
+		dob		date		not null
+	);
+
+	commit;
+Checking table description:	desc	tablename;
+
+
+
+PS2:Create a tpo table with sid (taken from only student table rollno),mailid columns
+
+Query:
+	create	table	tpo
+	(
+		sid	int		references	student(rollno),
+		mailid	varchar(20)	primary key
+	);
+	commit;
+	desc tpo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
