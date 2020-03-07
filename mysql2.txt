@@ -1,0 +1,166 @@
+6.Inserting records
+7.Reading/Selecting Records
+8.update & alter commands
+____________________________________________________________
+6.Inserting records:
+---------------------------
+Here we use "insert" command to insert the rows.
+syntax1:Inserting specific column values
+	insert	into	<tablename>(col1name,col2name,...)   values(value1,value2,..);
+syntax2:Inserting all column values
+	insert	into	<tablename>  values(value1,value2,..);
+
+PS1:Insert 1 row into student table using syntax1
+Q:insert into student(fullname,rollno,passport,per,dob) values('Ajay',1,'A21',88,'2012-02-03');
+PS2:Insert 1 row into student table using syntax2
+Q:insert into student values('Ram',2,'A22',99,'EEE','2011-03-05');
+
+PS3:Insert 3 rows into tpo table using syntax2
+Q1: insert into tpo values(1,'ajay@gmail.com');
+Q2:  insert into tpo values(2,'ram@gmail.com');
+____________________________________________________________
+7.Reading/Selecting Records:
+-----------------------------------------
+Here we use "select" command to read the rows.
+syntax1:reading specific columnlist
+	select	columnlist	from	tablename;
+syntax2:reading all columnlist
+	select	*	from	tablename;
+
+PS1:Print all students names & dob
+	select	fullname,dob	from	student;
+PS2:Print all tpo table rows
+	select	*	from	tpo;
+____________________________________________________________
+8.update & alter commands:
+---------------------------------------
+Alter is used modify the table metadata (column info)
+Update is used modify the table data 
+
+alter command:
++++++++++++++
+It modify the table metadata
+	1."add"ing new column
+	2."drop"ping existing column
+	3."renam"ing column
+	4."modify" the size of columns
+syntax:
+	alter	table	<tablename>	COMMAND
+
+
+
+PS1:Add "esalary" column
+	alter	table	emp01	add	(esalary	float	not null);
+	desc 	emp01;
+PS2:Drop "esalary" column
+	alter	table	emp01	drop	esalary;
+	desc 	emp01;
+
+PS3:Modify ename size into 30
+	alter	table	emp01	modify	ename varchar(30);
+	desc 	emp01;
+
+PS4:Rename eid to empid
+	alter	table	emp01	rename	column eid to empid;
+	desc 	emp01;
+
+Update:
++++++++
+It is used modify the table data 
+syntax:
+	update	<tablename>	set
+	col1name=value,
+	col2name=value,
+	..
+	where	<condition>;
+
+PS1:Modify 202 emp name to "tharun" and salary to 20000
+Q:update emp02 set ename='tharun',salary=20000 where eid=202;
+PS2:Modify 203 emp details to ur details
+Q:update emp02 set ename='shiva',address='balapur',salary=23000 where eid=203;
+PS3:modify salary to 35000 of 201 emp id
+Q:update emp02 set salary=35000 where eid=201;
+PS4:Give bonus of 5000 to all employees whose salary is below 30000
+Q:update emp02 set salary=salary+5000 where salary<30000;
+
+PS1:Withdraw 2000 from 15102 account number
+Q: update account set amount=amount-2000 where acno=15102;
+
+PS2:Diposit 5000 into 15101 account number
+
+PS3:Transfer 7000 from 15103 to 15101 account number
+
+
+
+
+
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Reference Table1:emp01 with eid & ename columns
+------------------------
+Create Query:
+create table emp01 (
+			eid	int		primary key,
+			ename	varchar(10)	not null
+		);
+commit;
+Reference Table2:emp02 with eid,ename,address & salary columns
+------------------------
+Create Query:
+create table emp02(eid int primary key,ename varchar(10) not null,address varchar(10) not null,salary float not null);
+commit;
+insert into emp02 values(201,'Ram','Pune',15000);
+insert into emp02 values(202,'Ajay','Chennai',16000);
+insert into emp02 values(203,'Varun','Hyd',25000);
+commit;
+select * from emp02;
+Reference Tabl3:account with acno & amount columns:
+--------------------------------------------------------------------
+Create Query:
+create table account(acno int primary key,amount float not null);
+insert into account values(15101,45000);
+insert into account values(15102,55000);
+insert into account values(15103,65000);
+select * from account;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
