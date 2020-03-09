@@ -1,0 +1,228 @@
+9.delete,truncate & drop commands
+10.select command
+____________________________________________________________
+9.delete,truncate & drop commands:
+================================
+9.1 delete: using this command we can delete "a particular row" & "all rows"
+
+syntax:
+	delete	from	<tablename>	[where condition];
+PS1:Delete 203 empid details from emp02
+Q:	delete	from	emp02 	where	eid=203;
+
+PS2:Delete all employess from emp02 table whose salary below 30000
+Q:	delete	from	emp02	where	salary<30000;
+
+PS3:Delete all employess from emp02 table
+Q: 	delete	from	emp02;
+
+
+9.2 truncate: using this command we can delete "all rows"
+
+syntax:
+	truncate	table	<tablename>;
+PS1:Delete all account holders fromaccount table
+Q:	truncate	table	account;
+
+9.3 drop: using this command we can delete table from database
+
+syntax:
+	drop	table	<tablename>;
+PS1:Delete account  table
+Q:	drop	table	account;
+
+
+10.select command:
+=================
+	Select command used to read records from table
+syntax:
+	select	columnlist		from	tablename	[where	condition];
+
+P1:Print all employee records
+Q:	select	*	from	emp;
+P2:Print all employee names & salaries
+Q:	select	name,sal		from	emp;
+P3:Print all employee id,locations & phone numbers
+Q:	select	id,loc,phone	from	emp;
+
+10.1 Aggrigate functions with Select command:
+=========================================
+1.min()	:returns min value from all columns
+2.max()	:returns max value from all columns
+3.sum()	:returns sum value for all columns
+4.avg()	:returns avg of all columns
+5.count()	:returns no of all columns
+
+p4:Print sum of all employees salary 
+Q:select sum(sal) from emp;
+
+p5:Print no of all employees whose salary below 40000
+Q:select count(*) from emp where sal <40000;
+
+p6:Print max salary from all employees  
+Q:
+
+p7:Print min salary from all employees 
+Q:
+
+p8:Print 2nd highest salary from all employees 
+Q:
+
+p9:Print 2nd lowest salary from all employees 
+Q:
+
+p10:Print avg of salary from all employees 
+Q:
+
+10.2 Relational Operators with Select command:(<,>,<=,>=,!=,=)
+=========================================
+p11:Print all employees id & names whose salary below 30k
+
+p12:Print all employees id & locations whose salary above 30k
+
+p13:Print all employees id & password,phone numbers whose salary other than 20k
+
+p14:Print all employees details whose id is 2
+
+p15:Print all employees details whose belongs to hyd
+
+p16:Print all employees details whosephone number is 9849098493
+
+10.3 Logical Operators with Select command:(and,or,not)
+=========================================-----------
+p17:Print all employees id ,branches & names whose salary between 30k and 40k
+
+p18:Print all employees details whose id is 2 and pswd is dog
+Q:select * from emp where id=2 and pswd='dog';
+
+p19:Print all employees details whose id is 3 and pswd is tat and phone number is 9849098493
+Q:select * from emp where id=3 and pswd='tat' and phone='9849098493';
+
+p20:Forgot pswd (based on id or phone)
+Q:select pswd from emp where id=6 or phone='9849098492';
+
+p21:Forgot pswd (based on id and phone)
+Q:select pswd from emp where id=6 and phone='9849098492';
+
+p22:Forgot userid 
+Q:select id from emp where phone='9849098492';
+
+p23:Forgot userid & pswd
+Q:select id,pswd from emp where phone='9849098493';
+
+10.4 Regular expressions with Select command:
+=======================================
+p24:Print all employees whose names begins with 'R' letter
+Q:select * from emp where name like 'R%';
+
+p25:Print all employees whose names ends with 'j' letter
+
+p26:Print all employees whose names having 'e' letter
+
+10.5 Order by clause:
+===================
+	Used to sort the records either in ascending or descending order(default is ascending)
+syntax:
+	
+	select	columnlist		from	tablename	order	by 	columnname	[desc];
+
+p27:Print all employees in ascending order based their locations
+
+Q:	select	*	from	emp	order	by loc;
+
+p28:Print all employees in descending order based their nmaes
+
+Q:	select	*	from	emp	order	by names	desc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Reference Table1:emp01 with eid & ename columns
+------------------------
+Create Query:
+create table emp01 (
+			eid	int		primary key,
+			ename	varchar(10)	not null
+		);
+commit;
+Reference Table2:emp02 with eid,ename,address & salary columns
+------------------------
+Create Query:
+create table emp02(eid int primary key,ename varchar(10) not null,address varchar(10) not null,salary float not null);
+commit;
+insert into emp02 values(201,'Ram','Pune',15000);
+insert into emp02 values(202,'Ajay','Chennai',16000);
+insert into emp02 values(203,'Varun','Hyd',25000);
+commit;
+select * from emp02;
+Reference Tabl3:account with acno & amount columns:
+--------------------------------------------------------------------
+Create Query:
+create table account(acno int primary key,amount float not null);
+insert into account values(15101,45000);
+insert into account values(15102,55000);
+insert into account values(15103,65000);
+select * from account;
+
+Reference Table4:emp with id,pswd,name,sal,loc,branch,phone
+---------------------------------------------------------------------------------
+Create Query:
+drop table emp;
+create table emp(id int,pswd varchar(10) not null,name varchar(10) not null,sal float not null,loc varchar(10) not null,branch varchar(5) not null,phone varchar(10),primary key(id,phone));
+commit;
+desc emp;
+insert into emp values(1,'ant','Ram',45000,'Hyd','CSE','9849098491');
+insert into emp values(2,'dog','Raj',35000,'Chennai','ESE','9849098492');
+insert into emp values(3,'tat','Tej',33000,'Chennai','CSE','9849098493');
+insert into emp values(4,'qwerty','Venu',20000,'Pune','ESE','9849098494');
+commit;
+select * from emp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
