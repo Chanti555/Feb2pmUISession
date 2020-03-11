@@ -1,0 +1,277 @@
+Working with Oracle DB Server:
+===========================
+Start=>Type "Run Sql Command Line"=>Enter
+Step1:Login with admin
+	SQL>connect	system/root;
+Step2:Creating Database & Using database
+syntax:
+	create	user	<dbname>	identified by <password>;
+	grant	dba	to 	<dbname>;
+	connect	<dbname>/<password>
+Ex:
+	create	user	dummydb	identified by dummy;
+	grant	dba	to 	dummydb;
+	connect	dummydb/dummy;
+	select	*	from tab;
+--------------------------------------------------------------------------------------------------------------------	
+create table emp1(id	number	primary key,name	varchar(10)	not null);
+insert into emp1 values(1,'Ram');
+insert into emp1 values(2,'Ajay');
+insert into emp1 values(3,'Sai');
+commit;
+create table emp2(id	number	primary key,loc	varchar(10)	not null);
+insert into emp2 values(1,'Pune');
+insert into emp2 values(2,'Chennai');
+insert into emp2 values(4,'Hyd');
+commit;
+select * from emp1;
+select * from emp2;
+--------------------------------------------------------------------------------------------------------------------
+Q1:Cross Join
+	select	*	from	emp1	cross join	emp2;
+
+Q2:Inner Join
+	select * from emp1	inner join	emp2 on emp1.id=emp2.id;
+Q3:Natural Join
+	select * from emp1	natural join emp2;
+
+Q4:outer Join
+	select * from emp1 left outer  join emp2 on emp1.id=emp2.id;
+	select * from emp1 right outer  join emp2 on emp1.id=emp2.id;
+	select * from emp1 full outer  join emp2 on emp1.id=emp2.id;
+--------------------------------------------------------------------------------------------------------------------
+create table emp3(
+					id number primary key,
+					name varchar(10) not null,
+					salary float not null,
+					address varchar(10) not null
+					);
+insert into emp3 values(501,'Rahul',25000,'hyd');
+insert into emp3 values(502,'Teja',35000,'knr');
+insert into emp3 values(503,'Venu',45000,'chennai');
+commit;
+select * from emp3;
+
+--------------------------------------------------------------------------------------------------------------------
+Views:
+======
+1.It is virtual table and maintain the records from other existing tables.
+2.View doen't have it's own data
+3.Afftect with tables also afftected to views
+
+syntax:
+
+	create view viewname as select columnlist from tablename [where cond];
+
+PS1:create a view with emp3 table id & salaries
+
+Q:	create view myview1 as select id,salary from emp3;
+
+Display view records:
+=====================
+	select * from myview1;
+
+PS2:create a view with emp3 table id,name & salaries whose salary is below 40000
+
+Q:
+
+Dropping views:
+=============
+syntax:
+	drop view viewname;
+ex:
+	drop view myview1;
+
+___________________________________________________________________________________
+
+Drawbacks with SQL:
+=================
+1.Cannot allow to execute multiple sql querues at a time
+2.Cannot support programming language features like
+	1.looping statements
+	2.condition checking statements
+3.SQL generates error codes
+4.Cannot provide reusability of queries
+5.Cannot provide modularity
+
+PL-SQL(Procedural Langauge & Structural Query Language ):
+-------------------------------------------------------------------------------------
+PL-SQL is a extension of SQL with following additional features
+
+1.Allow to execute multiple sql querues at a time
+2.Support programming language features like
+	1.looping statements
+	2.condition checking statements
+3.PL-SQL generates exception msgs
+4.Provide reusability of queries
+5.Provide modularity through "Stored Procedures".
+
+
+
+Stored Procedures:
+=================
+Procedure	:It is like a function to hold set of SQL statements to perform a specific actions.
+Stored 		:Here procedure is stored into DB & we can use this procedure any no times.
+
+
+syntax:
+
+Called Procedure:
+-----------------
+	create	or	replace	procedure  	procedurename(parameterlist)
+	as
+	begin
+			body
+	end;
+	/
+Calling Procedure:
+------------------
+execute	procedurename(parameterlist);
+
+Note:
+-------
+1.By default procedure outputs are disabled in SQL>.  To see output we used to type following command.
+	set	serveroutput	on;	
+2.To print anything into SQL> through procedure we used following statement.
+	dbms_output.put_line(DATA);
+1.Here "/" is used to compile & save the procedures.
+
+Types of parameters:
+==================
+1.IN parameter      		:Used to declare in parameters
+2.OUT parameter 		:Used to declare out parameters
+3.IN OUT parameter  	:Used to declare in out parameters
+
+
+Types of procedures:
+===================
+1.Anonymous procedure 	:  A procedure without header
+2.Static procedure   		:  A procedure without paramaterlist
+3.Dynamic procedure   	:  A procedure with paramaterlist
+
+
+App1:WAP to print "Hello" msg (Use Anonymous procedure )
+-------------------------------------------------------------------------------------
+begin
+	dbms_output.put_line('Hello');
+end;
+/
+App2:WAP to print "Hello" msg (Use Static procedure )
+-------------------------------------------------------------------------------------
+Called procedure:
+_______________
+create or replace procedure myPro1
+as
+begin
+	dbms_output.put_line('Hello1');
+end;
+/
+
+Calling procedure:
+_______________
+execute	myPro1
+App3:WAP to print "Hello" msg (Use Dynamic procedure )
+-------------------------------------------------------------------------------------
+Java Function:
+	void	showmsg(String	x)
+	{
+		sop("Ur msg is:"+x);
+	}
+	showmsg("Hello");
+
+Called procedure:
+_______________
+create or replace procedure showmsg(x		in	varchar)
+as
+begin
+	dbms_output.put_line('Ur msg is:'||x);
+end;
+/
+
+Calling procedure:
+_______________	
+execute	showmsg('Hello');
+
+App4:Addition of 2 numbers (Use Static procedure )
+-------------------------------------------------------------------------------------
+Java Function:
+	void	addition()
+	{
+		int	x;
+		int	y;
+		int	z;
+		x=10;
+		y=20;
+		z=x+y;
+		sop("Sum is:"+z);
+	}
+	addition();
+Called procedure:
+_______________
+create or replace procedure addition
+as
+begin
+	declare
+		x	number;
+		y	number;
+		z	number;
+		begin
+			x:=10;
+			y:=20;
+			z:=x+y;
+			dbms_output.put_line('Sum is:'||z);
+		end;
+end;
+/
+
+Calling procedure:
+_______________	
+execute	addition;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
